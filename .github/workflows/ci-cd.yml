@@ -8,9 +8,9 @@ on:
 
 env:
   ECR_REPOSITORY: my-repo
-  ECR_REGISTRY: 066558833665.dkr.ecr.ap-northeast-1.amazonaws.com
+  ECR_REGISTRY: 560442768576.dkr.ecr.ap-northeast-1.amazonaws.com/my-repo
   IMAGE_TAG: latest
-  CLUSTER_NAME: dev
+  CLUSTER_NAME: my-cluster
   AWS_REGION: ap-northeast-1
 
 jobs:
