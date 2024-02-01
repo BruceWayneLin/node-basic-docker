@@ -51,7 +51,7 @@ jobs:
       
       - name: Cleanup old images
         run: |
-          images_to_delete=$(aws ecr list-images --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ env.AWS_REGION }} --query 'imageIds[?imageTag!=`latest`]' --output json)
+          images_to_delete=$(aws ecr list-images --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ env.AWS_REGION }} --query 'imageIds[?imageTag!=`${{ env.IMAGE_TAG }}`]' --output json)
           if [ "$images_to_delete" != "[]" ]; then
             aws ecr batch-delete-image --repository-name ${{ env.ECR_REPOSITORY }} --region ${{ env.AWS_REGION }} --image-ids "$images_to_delete"
           else
