@@ -7,8 +7,8 @@ on:
     branches: [ main ]
 
 env:
-  ECR_REPOSITORY: my-repo
-  ECR_REGISTRY: 560442768576.dkr.ecr.ap-northeast-1.amazonaws.com
+  ECR_REPOSITORY: my-images-repo
+  ECR_REGISTRY: 066558833665.dkr.ecr.ap-northeast-1.amazonaws.com
   IMAGE_TAG: latest
   CLUSTER_NAME: my-cluster
   AWS_REGION: ap-northeast-1
@@ -48,7 +48,10 @@ jobs:
       - name: Push the Docker image
         run: |
           docker push ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
-
+      
+      - name: Delete the old Docker image
+        run: |
+          aws ecr batch-delete-image --repository-name ${{ env.ECR_REPOSITORY }} --image-ids imageTag=old-image-tag --region ${{ env.AWS_REGION }}
       # Deploy to Amazon EKS
       # - name: Set up Kubeconfig
       #   run: |
